@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_script">
+    <sys_ui_script action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <description/>
+        <global>false</global>
+        <name>x_regho_pag.paginationAlternative</name>
+        <script><![CDATA[<ul class="pagination" ng-if="1 ${LT} pages.length">
+    <li ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == 1 }">
+        <a href="" ng-click="setCurrent(1)"> &#171;"</a>
+    </li>
+    <li ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }" class="ng-scope">
+        <a href="" ng-click="setCurrent(pagination.current - 1)" class="ng-binding">‹</a>
+    </li>
+    <li ng-repeat="pageNumber in pages track by $index" ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == '...' }">
+        <a href="" ng-click="setCurrent(pageNumber)">{{ pageNumber }}</a>
+    </li>
+
+    <li ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }" class="ng-scope">
+        <a href="" ng-click="setCurrent(pagination.current + 1)" class="ng-binding">›</a>
+    </li>
+    <li ng-if="boundaryLinks"  ng-class="{ disabled : pagination.current == pagination.last }">
+        <a href="" ng-click="setCurrent(pagination.last)">&#187;</a>
+    </li>
+</ul>]]></script>
+        <script_name>paginationAlternative</script_name>
+        <sys_class_name>sys_ui_script</sys_class_name>
+        <sys_created_by>jhan0435</sys_created_by>
+        <sys_created_on>2018-02-13 08:18:41</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>19a793bc3798d3cc00c65a9543990e6c</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>x_regho_pag.paginationAlternative</sys_name>
+        <sys_package display_value="pag" source="x_regho_pag">03ef0ddb37cc5b0c00c65a9543990e76</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="pag">03ef0ddb37cc5b0c00c65a9543990e76</sys_scope>
+        <sys_update_name>sys_ui_script_19a793bc3798d3cc00c65a9543990e6c</sys_update_name>
+        <sys_updated_by>jhan0435</sys_updated_by>
+        <sys_updated_on>2018-02-13 08:21:21</sys_updated_on>
+        <use_scoped_format>false</use_scoped_format>
+    </sys_ui_script>
+</record_update>

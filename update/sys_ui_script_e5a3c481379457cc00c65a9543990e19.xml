@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_script">
+    <sys_ui_script action="INSERT_OR_UPDATE">
+        <active>false</active>
+        <description/>
+        <global>false</global>
+        <name>x_regho_pag.swlist</name>
+        <script><![CDATA[// Code goes here
+
+var myApp = angular.module('myApp', ['angularUtils.directives.dirPagination']);
+myApp.controller('MyController', MyController);
+
+function MyController($scope) {
+		jslog('!*!*!*! MyController !!!!');
+ $scope.currentPage = 1;
+  $scope.pageSize = 10;
+  $scope.meals = [];
+		$scope.sortType     = 'Software'; // set the default sort type
+		$scope.sortReverse  = false;  // set the default sort order
+		$scope.searchSoftware   = '';     // set the default search/filter term
+		$scope.pc   = '';
+  
+		$scope.swlist = [];
+		
+//		console.log('** GlideAjax ***');
+	var ga = new GlideAjax('global.RegH_Ess');
+    ga.addParam('sysparm_name', 'getSoftwarepakker');
+	ga.addParam('sysparm_sync', "s");
+	ga.getXMLWait();	
+
+	var result=ga.getAnswer();
+	var obj = JSON.parse(result);
+
+	
+		
+//angular.module("CombineModule", ["sortApp", "ngBindHtmlExample", "ngSanitize"]);		
+//	
+// Create table
+//
+//  for (i = 0; i != obj.length; i++){
+	jslog('***** SetValue ****');
+	  g_form.setValue('refuse',"xxx");
+	  g_form.setValue('accept',"yyyy");
+for (i = 0; i != obj.length; i++){
+
+	var x={ 'Software': obj[i].name, 'Version': obj[i].version, 'Fabrikant': obj[i].manufacturer, 'approve': obj[i].approve, 'accept' : false, 'reject' : false, 'idx' : i};
+	  $scope.meals.push('meal ' + i + ': ' + obj[i].name + ' ' + obj[i].version);
+
+	} 
+	  
+    $scope.accept = function (idx) {
+		//my function to accept
+		var i = $scope.swlist[idx];
+		g_form.setValue('accept', 'swlist: '+ $scope.swlist[idx].Software+' idx: '+$scope.swlist[idx].idx);
+        i.accept = true;
+        i.refuse = false;
+    };
+
+    $scope.refuse = function (idx) {
+        //my function to refuse
+        var i = $scope.swlist[idx];
+		g_form.setValue('refuse', 'swlist: '+ $scope.swlist[idx].Software+' idx: '+$scope.swlist[idx].idx);
+        i.refuse = true;
+        i.accept = false;
+    }	;   
+	
+	$scope.checkbox = function (idx, value) {
+        //my function to refuse
+        var i = $scope.swlist[idx];
+if ($scope.swlist[idx].Fabrikant == 'CIMT - Application Management'){
+	formValue=g_form.getValue('swUdenGodkendelse');
+	if (!value)
+		formValue = formValue.replace($scope.swlist[idx].Software+'\n','');
+	else
+		formValue+=$scope.swlist[idx].Software+'\n';
+	g_form.setValue('swUdenGodkendelse',formValue);	
+	
+    }
+else{
+	formValue=g_form.getValue('swMedGodkendelse');
+	if (!value)
+		formValue = formValue.replace($scope.swlist[idx].Software+'\n','');
+	else
+		formValue+=$scope.swlist[idx].Software+'\n';
+	g_form.setValue('swMedGodkendelse',formValue);	
+	}	 
+
+};	  
+
+	
+
+}
+
+function OtherController($scope) {
+  
+  $scope.pageChangeHandler = function(num) {
+      console.log('meals page changed to ' + num);
+  };
+}
+]]></script>
+        <script_name>swlist</script_name>
+        <sys_class_name>sys_ui_script</sys_class_name>
+        <sys_created_by>jhan0435</sys_created_by>
+        <sys_created_on>2018-02-13 12:00:14</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>e5a3c481379457cc00c65a9543990e19</sys_id>
+        <sys_mod_count>21</sys_mod_count>
+        <sys_name>x_regho_pag.swlist</sys_name>
+        <sys_package display_value="pag" source="x_regho_pag">03ef0ddb37cc5b0c00c65a9543990e76</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="pag">03ef0ddb37cc5b0c00c65a9543990e76</sys_scope>
+        <sys_update_name>sys_ui_script_e5a3c481379457cc00c65a9543990e19</sys_update_name>
+        <sys_updated_by>jhan0435</sys_updated_by>
+        <sys_updated_on>2018-03-07 11:17:36</sys_updated_on>
+        <use_scoped_format>false</use_scoped_format>
+    </sys_ui_script>
+</record_update>
